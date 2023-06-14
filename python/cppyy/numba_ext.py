@@ -130,6 +130,8 @@ class CppFunctionNumbaType(nb_types.Callable):
         self._signatures = list()
         self._impl_keys = dict()
         self._arg_set_matched = tuple()
+        # TODO: After reference types for objects is fixed, shift the bool for is_ref_type here
+        # self._is_reftype = is_reftype
 
     def is_precise(self):
         return True          # by definition
@@ -154,9 +156,9 @@ class CppFunctionNumbaType(nb_types.Callable):
         args_combinations = itertools.product(*args_mapping)
 
         for arg_combo in args_combinations:
-            if(len(arg_combo) > 1):
+            if len(arg_combo) > 1:
                 signature = ", ".join(arg_combo)
-            elif(len(arg_combo) == 0):
+            elif len(arg_combo) == 0:
                 signature = ""
             else:
                 signature = arg_combo[0]
@@ -176,6 +178,15 @@ class CppFunctionNumbaType(nb_types.Callable):
 
         return_type = ol._func.__cpp_reflex__(cpp_refl.RETURN_TYPE)
         is_reference_return = False
+
+        # TODO : This works for builtin reference type returns but not for objects
+        #  Use typeof_scope() and eventually merge this logic into cpp2numba
+        if not str(type(return_type)).startswith("<class"):
+            if return_type.endswith("&"):
+                is_reference_return = True
+                return_type = return_type[:-1]
+            else:
+                is_reference_return = False
 
         sig_return_type = cpp2numba(return_type)
 
