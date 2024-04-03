@@ -15,8 +15,7 @@ except ImportError:
     nopsutil = True
 
 
-# @mark.skipif(nopsutil == True, reason="module psutil not installed")
-@mark.skip(reason="Fails with memory leak issue, runs forever")
+@mark.skipif(nopsutil == True, reason="module psutil not installed")
 class TestLEAKCHECK:
     def setup_class(cls):
         import cppyy, psutil
