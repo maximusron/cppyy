@@ -23,7 +23,7 @@ class TestTEMPLATES:
         v1 = cppyy.gbl.std.vector[int]
         assert v1.__cpp_template__[int] is v1
 
-    @mark.skipif(IS_CLANG_REPL == False, reason="=Enabled with CppInterOp template-fix but has not been tested on Cling")
+    @mark.skipif(not IS_CLANG_REPL, reason="=Enabled with CppInterOp template-fix but has not been tested on Cling")
     def test01_template_member_functions(self):
         """Template member functions lookup and calls"""
 
@@ -239,7 +239,7 @@ class TestTEMPLATES:
 
         assert tc(5) == 5.
 
-    @mark.skipif(IS_CLANG_REPL == False, reason="=Enabled with CppInterOp template-fix but has not been tested on Cling")
+    @mark.skipif(not IS_CLANG_REPL, reason="=Enabled with CppInterOp template-fix but has not been tested on Cling")
     def test10_templated_hidding_methods(self):
         """Test that base class methods are not considered when hidden"""
 
@@ -581,7 +581,7 @@ class TestTEMPLATES:
         for val in [2**64, -2**63-1]:
             raises(OverflowError, PassSomeInt, val)
 
-    @mark.skipif(IS_CLANG_REPL == False, reason="=Enabled with CppInterOp template-fix but has not been tested on Cling")
+    @mark.skipif(not IS_CLANG_REPL, reason="=Enabled with CppInterOp template-fix but has not been tested on Cling")
     def test23_overloaded_setitem(self):
         """Template with overloaded non-templated and templated setitem"""
 

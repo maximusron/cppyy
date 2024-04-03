@@ -15,7 +15,7 @@ class TestBOOSTANY:
 
         cppyy.include('boost/any.hpp')
 
-    @mark.skipif(IS_CLANG_REPL == False, reason="Works on Clang-Repl but has not been tested on Cling")
+    @mark.skipif(not IS_CLANG_REPL, reason="Works on Clang-Repl but has not been tested on Cling")
     def test01_any_class(self):
         """Availability of boost::any"""
 
