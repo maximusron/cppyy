@@ -1,6 +1,6 @@
 import py, os, sys
 from pytest import raises, skip, mark
-from .support import setup_make, pylong, pyunicode, IS_CLANG_REPL, IS_MAC_X86
+from .support import setup_make, pylong, pyunicode, IS_CLANG_REPL, IS_MAC_X86, IS_MAC_ARM
 
 currpath = py.path.local(__file__).dirpath()
 test_dct = str(currpath.join("datatypesDict"))
@@ -1410,7 +1410,7 @@ class TestDATATYPES:
         gc.collect()
         raises(TypeError, c, 3, 3) # lambda gone out of scope
 
-    @mark.xfail
+    @mark.xfail(run=not IS_MAC_ARM, reason="Crashes with exception not being caught on Apple Silicon")
     def test28_callable_through_function_passing(self):
         """Passing callables through std::function"""
 

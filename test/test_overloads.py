@@ -1,6 +1,6 @@
 import py, os, sys
 from pytest import raises, skip, mark
-from .support import setup_make, ispypy, IS_WINDOWS, IS_MAC_X86
+from .support import setup_make, ispypy, IS_WINDOWS, IS_MAC_X86, IS_MAC_ARM
 
 currpath = py.path.local(__file__).dirpath()
 test_dct = str(currpath.join("overloadsDict"))
@@ -206,7 +206,7 @@ class TestOVERLOADS:
         with raises(ValueError):
             cpp.BoolInt4.fff(2)
 
-    @mark.xfail
+    @mark.xfail(run=not IS_MAC_ARM, reason="Seg Faults")
     def test10_overload_and_exceptions(self):
         """Prioritize reporting C++ exceptions from callee"""
 

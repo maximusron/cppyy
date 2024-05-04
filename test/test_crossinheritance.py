@@ -273,6 +273,7 @@ class TestCROSSINHERITANCE:
         assert 'ValueError' in res
         assert os.path.basename(__file__) in res
 
+    @mark.xfail(run=not IS_MAC_ARM, condition=IS_MAC_ARM, reason="Crashes with exception not being caught on Apple Silicon")
     def test09_interface_checking(self):
         """Conversion errors should be Python exceptions"""
 

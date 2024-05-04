@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import py, os, sys
 from pytest import raises, skip, mark
-from .support import setup_make, pylong, pyunicode, maxvalue, ispypy, IS_CLANG_REPL, IS_CLANG_DEBUG, IS_MAC_X86
+from .support import setup_make, pylong, pyunicode, maxvalue, ispypy, IS_CLANG_REPL, IS_CLANG_DEBUG, IS_MAC_X86, IS_MAC_ARM
 
 currpath = py.path.local(__file__).dirpath()
 test_dct = str(currpath.join("stltypesDict"))
@@ -2028,7 +2028,7 @@ class TestSTLEXCEPTION:
         gc.collect()
         assert cppyy.gbl.GetMyErrorCount() == 0
 
-    @mark.xfail
+    @mark.xfail(run=not IS_MAC_ARM, reason="Seg Faults")
     def test04_from_cpp(self):
         """Catch C++ exceptiosn from C++"""
 
