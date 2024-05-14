@@ -201,3 +201,59 @@
    fun:_ZN4llvm16SelectionDAGISel20SelectAllBasicBlocksERKNS_8FunctionE
    fun:_ZN4llvm16SelectionDAGISel20runOnMachineFunctionERNS_15MachineFunctionE.part.0
 }
+
+{
+   Ubuntu strncmp suppression
+   Memcheck:Addr8
+   fun:strncmp
+   fun:is_dst
+   fun:_dl_dst_substitute
+   fun:fillin_rpath.isra.0
+   fun:decompose_rpath
+   fun:cache_rpath
+   fun:cache_rpath
+   fun:_dl_map_object
+   fun:openaux
+   fun:_dl_catch_exception
+   fun:_dl_map_object_deps
+   fun:dl_open_worker_begin
+   fun:_dl_catch_exception
+   fun:dl_open_worker
+}
+
+{
+   Ubuntu strncmp suppression
+   Memcheck:Addr8
+   fun:strncmp
+   fun:is_dst
+   fun:_dl_dst_count
+   fun:expand_dynamic_string_token
+   fun:fillin_rpath.isra.0
+   fun:decompose_rpath
+   fun:cache_rpath
+   fun:cache_rpath
+   fun:_dl_map_object
+   fun:openaux
+   fun:_dl_catch_exception
+   fun:_dl_map_object_deps
+   fun:dl_open_worker_begin
+   fun:_dl_catch_exception
+   fun:dl_open_worker
+}
+  
+{
+   LLVM 18 suppressions : CodeGen
+   Memcheck:Cond
+   fun:_ZN5clang7CodeGen13CodeGenModule38SetLLVMFunctionAttributesForDefinitionEPKNS_4DeclEPN4llvm8FunctionE
+   fun:_ZN5clang7CodeGen13CodeGenModule28EmitGlobalFunctionDefinitionENS_10GlobalDeclEPN4llvm11GlobalValueE
+   fun:_ZN5clang7CodeGen13CodeGenModule20EmitGlobalDefinitionENS_10GlobalDeclEPN4llvm11GlobalValueE
+   fun:_ZN5clang7CodeGen13CodeGenModule10EmitGlobalENS_10GlobalDeclE
+   fun:_ZN5clang7CodeGen13CodeGenModule16EmitTopLevelDeclEPNS_4DeclE.part.0
+   fun:_ZN12_GLOBAL__N_117CodeGeneratorImpl18HandleTopLevelDeclEN5clang12DeclGroupRefE
+   fun:_ZN5clang15BackendConsumer18HandleTopLevelDeclENS_12DeclGroupRefE
+   fun:_ZN5clang22IncrementalASTConsumer18HandleTopLevelDeclENS_12DeclGroupRefE
+   fun:_ZN5clang17IncrementalParser23ParseOrWrapTopLevelDeclEv
+   fun:_ZN5clang17IncrementalParser5ParseEN4llvm9StringRefE
+   fun:_ZN5clang11Interpreter5ParseEN4llvm9StringRefE
+   fun:_ZN3Cpp11Interpreter7processERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPN5clang5ValueEPPNS9_22PartialTranslationUnitEb.isra.0
+}
