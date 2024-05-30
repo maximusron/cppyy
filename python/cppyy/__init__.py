@@ -196,7 +196,8 @@ class _stderr_capture(object):
             self.err = _end_capture_stderr()
 
 def cppdef(src):
-    """Declare C++ source <src> to Cling."""
+    """Declare C++ source <src> to the Cling. Conditionally compiled on the CPU target IncrementalCompiler"""
+    src = "#ifndef __CUDA__\n" + src + "\n#endif"
     with _stderr_capture() as err:
         errcode = gbl.gInterpreter.Declare(src)
     if not errcode or err.err:
@@ -204,6 +205,18 @@ def cppdef(src):
             warnings.warn(err.err, SyntaxWarning)
             return True
         raise SyntaxError('Failed to parse the given C++ code%s' % err.err)
+    return True
+
+def cudadef(src):
+    """Declare CUDA specific C++ source <src> to Cling. Conditionally compiled on the GPU target IncrementalCUDADeviceCompiler"""
+    src = "#ifdef __CUDA__\n" + src + "\n#endif"
+    with _stderr_capture() as err:
+        errcode = gbl.gInterpreter.Declare(src)
+    if not errcode or err.err:
+        if 'warning' in err.err.lower() and not 'error' in err.err.lower():
+            warnings.warn(err.err, SyntaxWarning)
+            return True
+        raise SyntaxError('Failed to parse the given CUDA C++ code%s' % err.err)
     return True
 
 def cppexec(stmt):
