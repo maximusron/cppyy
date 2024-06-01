@@ -48,6 +48,7 @@ __all__ = [
     'add_library_path',       # add a path to search for headers
     'add_autoload_map',       # explicitly include an autoload map
     'set_debug',              # enable/disable debug output
+    'cudadef',                # declare CUDA specific C++ source to Cling   
     ]
 
 from ._version import __version__
